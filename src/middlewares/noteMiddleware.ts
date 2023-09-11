@@ -8,6 +8,7 @@ export async function verifyNote(req: Request, res: Response, next: NextFunction
   const validation = noteSchema.validate({title, description, category, image})
   
   if(validation.error){
+    console.log(validation.error)
     throw { type: "Note validation error", status: 400 }
   }
 
