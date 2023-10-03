@@ -5,9 +5,9 @@ import { getNotes, insertNote } from '../repositories/noteRepository.js'
 export type NoteData = Omit<Note, 'id' | 'createdAt' | 'updatedAt'>
 
 export async function createNewNote(req: Request, res: Response) {
-  const {title, description, category, image}: NoteData = req.body
+  const {title, description, categoryName, image}: NoteData = req.body
 
-  await insertNote({title, description, category, image})
+  await insertNote({title, description, categoryName, image})
 
   res.sendStatus(201)
 }
