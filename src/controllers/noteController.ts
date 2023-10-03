@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import { Note } from '@prisma/client'
-import { getNotes, insertNote } from '../repositories/noteRepository.js'
-import { checkCategory, checkIfCategoryExist, getCategories } from '../services/noteService.js'
+import { deleteNoteById, getNotes, insertNote, updateNoteById } from '../repositories/noteRepository.js'
+import { checkCategory, checkIfCategoryExist, checkNoteById, getCategories } from '../services/noteService.js'
 
 export type NoteData = Omit<Note, 'id' | 'createdAt' | 'updatedAt'>
 
@@ -39,4 +39,21 @@ export async function getAllNotes(req: Request, res: Response) {
   const notes = await getNotes()
 
   res.send(notes).status(200)
+}
+
+export async function removeNote(req: Request, res: Response) {
+  const { id }: { id: string } = req.body
+
+  await checkNoteById(Number(id))
+  await deleteNoteById(Number(id))
+
+  res.sendStatus(200)
+}
+
+export async function updateNote(req: Request, res: Response) {
+  const { id, title, description, categoryName, image }: { id: string, title: string, description: string, categoryName: string, image: string } = req.body
+
+  await checkNoteById(Number(id))
+  await updateNoteById(Number(id), { title, description, categoryName, image })
+
 }

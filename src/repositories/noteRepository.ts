@@ -51,3 +51,32 @@ export async function deleteCategoryByName(category: string) {
     }
   })
 }
+
+export async function deleteNoteById(id: number) {
+  await db.note.delete({
+    where: {
+      id
+    }
+  })
+}
+
+export async function findNoteById(id: number) {
+  const note = await db.note.findFirst({
+    where: {
+      id
+    }
+  })
+
+  return note
+}
+
+export async function updateNoteById(id: number, noteData: NoteData) {
+  await db.note.update({
+    where: {
+      id
+    },
+    data: {
+      ...noteData
+    }
+  })
+}

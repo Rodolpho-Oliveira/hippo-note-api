@@ -1,4 +1,4 @@
-import { deleteCategoryByName, findAllCategory, getCategoryByName, insertCategory } from "../repositories/noteRepository.js";
+import { deleteCategoryByName, deleteNoteById, findAllCategory, findNoteById, getCategoryByName, insertCategory } from "../repositories/noteRepository.js";
 
 export async function checkCategory(category: string) {
     const categoryExists = await getCategoryByName(category)
@@ -24,4 +24,12 @@ export async function checkIfCategoryExist(category: string) {
   }
 
   await deleteCategoryByName(category)
+}
+
+export async function checkNoteById(id: number) {
+  const note = await findNoteById(id)
+
+  if (!note) {
+    throw { type: "Note not found", status: 404 }
+  }
 }
