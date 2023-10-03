@@ -43,3 +43,11 @@ export async function findAllCategory() {
 
   return categories
 }
+
+export async function deleteCategoryByName(category: string) {
+  await db.category.delete({
+    where: {
+      name: category
+    }
+  })
+}
