@@ -1,4 +1,4 @@
-import { getCategoryByName, insertCategory } from "../repositories/noteRepository.js";
+import { findAllCategory, getCategoryByName, insertCategory } from "../repositories/noteRepository.js";
 
 export async function checkCategory(category: string) {
     const categoryExists = await getCategoryByName(category)
@@ -8,4 +8,10 @@ export async function checkCategory(category: string) {
     }
 
     await insertCategory(category)
+}
+
+export async function getCategories() {
+  const categories = await findAllCategory()
+
+  return categories
 }

@@ -37,3 +37,9 @@ export async function getNotes() {
 
   return notes
 }
+
+export async function findAllCategory() {
+  const categories = await db.category.findMany()
+
+  return categories
+}

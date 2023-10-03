@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import { Note } from '@prisma/client'
 import { getNotes, insertNote } from '../repositories/noteRepository.js'
-import { checkCategory } from '../services/noteService.js'
+import { checkCategory, getCategories } from '../services/noteService.js'
 
 export type NoteData = Omit<Note, 'id' | 'createdAt' | 'updatedAt'>
 
@@ -19,6 +19,12 @@ export async function createNewCategory(req: Request, res: Response) {
   await checkCategory(category)
 
   res.sendStatus(201)
+}
+
+export async function getAllCategories(req: Request, res: Response) {
+  const categories = await getCategories()
+
+  res.send(categories).status(200)
 }
 
 export async function getAllNotes(req: Request, res: Response) {
