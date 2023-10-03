@@ -42,7 +42,7 @@ export async function getAllNotes(req: Request, res: Response) {
 }
 
 export async function removeNote(req: Request, res: Response) {
-  const { id }: { id: string } = req.body
+  const id: string  = req.params.id
 
   await checkNoteById(Number(id))
   await deleteNoteById(Number(id))
@@ -51,7 +51,8 @@ export async function removeNote(req: Request, res: Response) {
 }
 
 export async function updateNote(req: Request, res: Response) {
-  const { id, title, description, categoryName, image }: { id: string, title: string, description: string, categoryName: string, image: string } = req.body
+  const { title, description, categoryName, image }: NoteData = req.body
+  const id = req.params.id
 
   await checkNoteById(Number(id))
   await updateNoteById(Number(id), { title, description, categoryName, image })
