@@ -14,6 +14,24 @@ export async function insertNote(noteData: NoteData) {
   })
 }
 
+export async function insertCategory(category: string) {
+  await db.category.create({
+    data: {
+      name: category
+    }
+  })
+}
+
+export async function getCategoryByName(category: string) {
+  const categoryExists = await db.category.findFirst({
+    where: {
+      name: category
+    }
+  })
+
+  return categoryExists
+}
+
 export async function getNotes() {
   const notes = await db.note.findMany()
 

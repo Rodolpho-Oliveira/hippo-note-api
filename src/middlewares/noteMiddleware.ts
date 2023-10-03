@@ -3,9 +3,9 @@ import { NoteData } from "../controllers/noteController.js"
 import { noteSchema } from "../schemas/noteSchema.js"
 
 export async function verifyNote(req: Request, res: Response, next: NextFunction) {
-  const {title, description, category, image}: NoteData = req.body
+  const {title, description, categoryName, image}: NoteData = req.body
 
-  const validation = noteSchema.validate({title, description, category, image})
+  const validation = noteSchema.validate({title, description, categoryName, image})
   
   if(validation.error){
     console.log(validation.error)
